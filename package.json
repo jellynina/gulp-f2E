@@ -1,0 +1,36 @@
+{
+  "name": "jellynina.me",
+  "version": "1.0.0",
+  "description": "my landing page and gulp example",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "landing",
+    "page"
+  ],
+  "author": "jellynina",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^2.1.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "merge-stream": "^1.0.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jellynina/gulp-f2E.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jellynina/gulp-f2E/issues"
+  },
+  "homepage": "https://github.com/jellynina/gulp-f2E#readme"
+}
