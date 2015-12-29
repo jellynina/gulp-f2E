@@ -3,18 +3,21 @@
 var gulp  = require('gulp'),
   concat  = require('gulp-concat'),
   uglify  = require('gulp-uglify'),
+  watch =  require('gulp-watch'),
   rename  = require('gulp-rename'),
   sass    = require('gulp-sass'),
   maps    = require('gulp-sourcemaps'),
   connect = require('gulp-connect'),
   merge = require('merge-stream'),
   plumber = require('gulp-plumber'),
-  del     = require('del');
+  del     = require('del'),
+  swig    = require('gulp-swig');
 
 var opt = {
   'src': './src',
   'sass': './src/scss',
   'js': './src/js',
+  'view': './src/html',
   'dist': './dist'
 }
 
@@ -30,7 +33,7 @@ var scriptArray = [
 ];
 
 
-gulp.task("Sass", function (){
+gulp.task('sass', function (){
   return gulp.src(opt.sass + '/style.scss')
   .pipe(plumber())
   .pipe(maps.init({loadMaps: true}))
@@ -39,10 +42,21 @@ gulp.task("Sass", function (){
     //import_path: ['lib'],
     debug : true
   }).on('error', sass.logError))
-  .pipe(maps.write("./")) //this path is going to be relative to our output directory ??
+  .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
   .pipe(gulp.dest(opt.dist + '/css'))
   .pipe(connect.reload());
 });
+
+watch([opt.sass + '**/*.scss'], function() {
+  gulp.start('sass');
+});
+
+gulp.task('view', function () {
+  return gulp.src(opt.view + '/*.html')
+  .pipe(plumber())
+  .pipe(swig())
+  .pipe(gulp.dest(opt.dist));
+})
 
 gulp.task("concatScripts", function () {
   return gulp.src(scriptArray)
@@ -59,13 +73,17 @@ gulp.task('clean', function(){
 
 gulp.task('run', function (){
   connect.server({
-    root: 'dist',
+    root: opt.dist,
     port: 8080,
     livereload: true
   });
 });
 
-gulp.task("build", ['Sass', 'concatScripts'], function (){
+gulp.task("build", ['sass', 'concatScripts', 'view'], function (){
   return gulp.src(distAccess, { base: opt.src})
             .pipe(gulp.dest(opt.dist));
+});
+
+gulp.task('default', ['build'], function (){
+  gulp.start('run');
 });
