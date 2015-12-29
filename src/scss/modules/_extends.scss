@@ -24,7 +24,7 @@
   font-size: em(18px);
   display: block;
   padding: em(8px, 20px);
-  border-bottom: 1px solid transparent;
+  border-bottom: 3px solid transparent;
   @include mq(small) {
     border-bottom-color: palette(grey, xx-light);
     padding-top: em(14px, 18px);

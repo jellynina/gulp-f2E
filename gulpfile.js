@@ -7,7 +7,7 @@ var gulp  = require('gulp'),
   rename  = require('gulp-rename'),
   sass    = require('gulp-sass'),
   maps    = require('gulp-sourcemaps'),
-  connect = require('gulp-connect'),
+  webserver = require('gulp-webserver'),
   merge = require('merge-stream'),
   plumber = require('gulp-plumber'),
   del     = require('del'),
@@ -43,13 +43,10 @@ gulp.task('sass', function (){
     debug : true
   }).on('error', sass.logError))
   .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
-  .pipe(gulp.dest(opt.dist + '/css'))
-  .pipe(connect.reload());
+  .pipe(gulp.dest(opt.dist + '/css'));
 });
 
-watch([opt.sass + '**/*.scss'], function() {
-  gulp.start('sass');
-});
+
 
 gulp.task('view', function () {
   return gulp.src(opt.view + '/*.html')
@@ -71,13 +68,27 @@ gulp.task('clean', function(){
   del([opt.dist]);
 });
 
-gulp.task('run', function (){
-  connect.server({
-    root: opt.dist,
-    port: 8080,
-    livereload: true
-  });
+gulp.task('run', function() {
+  gulp.src(opt.dist)
+    .pipe(webserver({
+      livereload: true,
+      open: false,
+      port: 8080
+    }));
 });
+
+watch([opt.sass + '/**/*.scss'], function() {
+  gulp.start('sass');
+});
+
+watch(opt.js + '/*.js', function () {
+  gulp.start('concatScripts');
+});
+
+watch(opt.view + '/**/*.html', function (){
+  gulp.start('view');
+});
+
 
 gulp.task("build", ['sass', 'concatScripts', 'view'], function (){
   return gulp.src(distAccess, { base: opt.src})

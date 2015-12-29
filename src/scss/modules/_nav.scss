@@ -7,7 +7,7 @@
 .nav {
 	margin-top: em(20px);
 	margin-bottom: em(30px);
-
+	text-align: center;
 	@include e(item) {
 		@extend %nav-item-horz;
 		@include m(current) {
