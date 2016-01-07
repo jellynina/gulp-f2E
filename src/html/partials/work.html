@@ -1,24 +1,17 @@
-<ul>
-  <li>
-    <h3>Projext titile</h3>
-    <h6>Project area</h6>
-  </li>
+<ul class="item-list" id="projects">
   {% for project in projects %}
   <li class="project-item">
-    <figure class="portfolio-cover" title="{{project.name}}" data-project-id="{{project.id}}">
+    <figure class="project-cover" title="{{project.name}}" data-project-id="{{project.id}}">
       {% if project.covers[404] %}
-      <img src="{{ project.covers[404] }}" alt="" >
+      <img class="project-image" src="{{ project.covers[404] }}" alt="" >
       {% elseif project.covers[230] %}
-      <img src="{{ project.covers[230] }}" alt="" >
+      <img class="project-image" src="{{ project.covers[230] }}" alt="" >
       {% else %}
-      <img src="{{ project.covers[202] }}" alt="" >
+      <img class="project-image" src="{{ project.covers[202] }}" alt="" >
       {% endif %}
     </figure>
     <h3> {{ project.name }} </h3>
     <h6> {{ project.fields }} </h6>
-    <p>
-      {{ project.url }}
-    </p>
   </li>
   {% endfor %}
 

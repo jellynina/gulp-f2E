@@ -1,0 +1,14 @@
+.item-list{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+
+  li{
+    word-wrap: break-word;
+    width: 100px / 3px * 1%;
+    @include mq(small) {
+      width: 100%;
+    }
+  }
+}

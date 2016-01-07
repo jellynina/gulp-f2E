@@ -38,7 +38,10 @@ var distAccess = [
 ];
 
 var scriptArray = [
-  opt.src +'/js/nav.js'
+  'lib/jquery/dist/jquery.min.js',
+  'lib/magnific-popup/dist/jquery.magnific-popup.min.js',
+  opt.src +'/js/nav.js',
+  opt.src +'/js/behance.js'
 ];
 
 
