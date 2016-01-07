@@ -4,12 +4,22 @@
     <h6>Project area</h6>
   </li>
   {% for project in projects %}
-    <li>
-      <h3> {{ project.name }} </h3>
-      <p>
-        {{ project.url }}
-      </p>
-    </li>
+  <li class="project-item">
+    <figure class="portfolio-cover" title="{{project.name}}" data-project-id="{{project.id}}">
+      {% if project.covers[404] %}
+      <img src="{{ project.covers[404] }}" alt="" >
+      {% elseif project.covers[230] %}
+      <img src="{{ project.covers[230] }}" alt="" >
+      {% else %}
+      <img src="{{ project.covers[202] }}" alt="" >
+      {% endif %}
+    </figure>
+    <h3> {{ project.name }} </h3>
+    <h6> {{ project.fields }} </h6>
+    <p>
+      {{ project.url }}
+    </p>
+  </li>
   {% endfor %}
 
 </ul>

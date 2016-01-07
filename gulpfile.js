@@ -62,7 +62,6 @@ var getData = function (url, callback){
     }
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      //body = JSON.parse(JSON.stringify(body));
       callback(body);
     }
   });
