@@ -1,0 +1,15 @@
+<ul>
+  <li>
+    <h3>Projext titile</h3>
+    <h6>Project area</h6>
+  </li>
+  {% for project in projects %}
+    <li>
+      <h3> {{ project.name }} </h3>
+      <p>
+        {{ project.url }}
+      </p>
+    </li>
+  {% endfor %}
+
+</ul>

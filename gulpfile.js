@@ -11,12 +11,21 @@ var gulp  = require('gulp'),
   merge = require('merge-stream'),
   plumber = require('gulp-plumber'),
   del     = require('del'),
-  swig    = require('gulp-swig');
+  swig    = require('gulp-swig'),
+//  data    = require('gulp-data'),
+//  jeditor = require('gulp-json-editor'),
+//  gj = require('just-get-json'),
+//  Stringify = require('streaming-json-stringify'),
+  request = require('request'),
+//  source = require('vinyl-source-stream'),
+//  streamify = require('gulp-streamify'),
+  jsonfile = require('jsonfile');
 
 var opt = {
   'src': './src',
   'sass': './src/scss',
   'js': './src/js',
+  'json': './src/json',
   'view': './src/html',
   'dist': './dist'
 }
@@ -31,6 +40,47 @@ var distAccess = [
 var scriptArray = [
   opt.src +'/js/nav.js'
 ];
+
+
+// get data
+var apiKey = 'MoepDSejShHpWYHdQHAZsEsMAi9yCWnY';
+var userID = 'NinaIkea';
+var perPage = 12;
+var behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '?callback=?&api_key=' + apiKey;
+var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+var dataAPI;
+
+
+var getData = function (url, callback){
+
+  console.log('getData start.');
+  request({
+    url: url,
+    json: true,
+    headers: {
+       'Content-Type': 'application/json'
+    }
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      //body = JSON.parse(JSON.stringify(body));
+      callback(body);
+    }
+  });
+}
+
+gulp.task('json', function () {
+  getData(behanceProjectAPI, function (body) {
+    dataAPI = JSON.parse(JSON.stringify(body));
+    var dataString = dataAPI.slice(6, dataAPI.length - 2); //TODO: 這很白癡
+    dataAPI = JSON.parse(dataString);
+    // console.log(dataAPI.projects);
+    jsonfile.writeFile( 'projects.json', dataAPI.projects,{spaces: 2}, function (err) {
+      console.error(err)
+    })
+    return dataAPI.projects
+  });
+});
+
 
 
 gulp.task('sass', function (){
@@ -51,7 +101,15 @@ gulp.task('sass', function (){
 gulp.task('view', function () {
   return gulp.src(opt.view + '/*.html')
   .pipe(plumber())
-  .pipe(swig())
+  .pipe(swig({
+    setup: function (swig){
+      swig.setDefaults({
+        locals: {
+          projects: require('./projects.json')
+        }
+      });
+    }
+  }))
   .pipe(gulp.dest(opt.dist));
 })
 
