@@ -50,7 +50,9 @@ var apiKey = 'MoepDSejShHpWYHdQHAZsEsMAi9yCWnY';
 var userID = 'NinaIkea';
 var perPage = 12;
 var behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '?callback=?&api_key=' + apiKey;
-var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?&api_key=' + apiKey + '&per_page=' + perPage;
+
+// 問題 callback=? , &per_page= 的存在必要
 var dataAPI;
 
 
@@ -73,8 +75,8 @@ var getData = function (url, callback){
 gulp.task('json', function () {
   getData(behanceProjectAPI, function (body) {
     dataAPI = JSON.parse(JSON.stringify(body));
-    var dataString = dataAPI.slice(6, dataAPI.length - 2); //TODO: 這很白癡
-    dataAPI = JSON.parse(dataString);
+    //var dataString = dataAPI.slice(6, dataAPI.length - 2); //TODO: 這很白癡
+    //dataAPI = JSON.parse(dataString);
     // console.log(dataAPI.projects);
     jsonfile.writeFile( 'projects.json', dataAPI.projects,{spaces: 2}, function (err) {
       console.error(err)
