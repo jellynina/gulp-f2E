@@ -25,9 +25,4 @@
 			}
 		}
 	}
-	@include e(bar) {
-		@include m(fixed){
-			@extend %nav-bar-fix;
-		}
-	}
 }

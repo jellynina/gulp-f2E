@@ -2,10 +2,30 @@
 // Navbar
 // ==========================================================================
 
-.navbar {	
+.navbar {
 	position: relative;
-	@include mq(medium) { 
+	@include mq(medium) {
 		margin-top: em(54px);
 		margin-bottom: 0;
 	}
+}
+
+.navbar--fixed{
+	@extend %nav-bar-fix;
+	border-bottom: 1px solid lighten($color-primary, 20);
+	@include mq(small){
+		width: 100%;
+		display: block;
+		padding: em(12px) em(20px);
+
+		span{
+			display: inline-block;
+		}
+		.navbar-titile{
+			margin-left: 2em;
+			width: 80%;
+			text-align: center;
+		}
+	}
+
 }

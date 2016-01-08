@@ -3,7 +3,7 @@
 
 $(document).ready(function () {
 $('#toggle').click(function() {
-  $(this).next('.nav').toggleClass("is-collapsed-mobile");
+  $('#toggle-menu').toggleClass("is-collapsed-mobile");
 });
 
 $(document).on("scroll", onScroll);

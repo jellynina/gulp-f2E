@@ -22,3 +22,9 @@ $poly-grid: (
 		background-color: $color;
 	}
 }
+
+@each $value, $color in $ui-colors {
+	.color-#{$value} {
+		color: $color;
+	}
+}
