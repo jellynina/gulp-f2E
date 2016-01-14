@@ -73,7 +73,7 @@ var getData = function (url, callback){
 }
 
 gulp.task('json', function () {
-  getData(behanceProjectAPI, function (body) {
+  return getData(behanceProjectAPI, function (body) {
     dataAPI = JSON.parse(JSON.stringify(body));
     //var dataString = dataAPI.slice(6, dataAPI.length - 2); //TODO: 這很白癡
     //dataAPI = JSON.parse(dataString);
@@ -102,7 +102,7 @@ gulp.task('sass', function (){
 
 
 
-gulp.task('view', function () {
+gulp.task('view', ['sass', 'json'], function () {
   return gulp.src(opt.view + '/*.html')
   .pipe(plumber())
   .pipe(swig({
@@ -152,7 +152,7 @@ watch(opt.view + '/**/*.html', function (){
 });
 
 
-gulp.task("build", ['sass', 'concatScripts', 'view'], function (){
+gulp.task("build", ['concatScripts', 'view'], function (){
   return gulp.src(distAccess, { base: opt.src})
             .pipe(gulp.dest(opt.dist));
 });
