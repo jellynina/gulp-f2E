@@ -5,7 +5,7 @@
 // Logo
 
 .site-logo {
-	@include img-replace("logo.svg", 115px, 45px, inline-block);
+	@include img-replace("../img/logo.svg", 115px, 45px, inline-block);
 }
 
 // UI
@@ -29,7 +29,7 @@
 	// Close
 	@include m(close) {
 		@extend %icn--ui;
-		@include img-replace("icn-close.svg", 20px, 20px); 
+		@include img-replace("icn-close.svg", 20px, 20px);
 		position: absolute;
 		right: 4%;
 		top: 4%;

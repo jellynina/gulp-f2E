@@ -139,16 +139,12 @@ gulp.task('run', function() {
     }));
 });
 
-watch([opt.sass + '/**/*.scss'], function() {
-  gulp.start('sass');
+watch([opt.sass + '/**/*.scss', opt.view + '/**/*.html'], function() {
+  gulp.start('view');
 });
 
 watch(opt.js + '/*.js', function () {
   gulp.start('concatScripts');
-});
-
-watch(opt.view + '/**/*.html', function (){
-  gulp.start('view');
 });
 
 
