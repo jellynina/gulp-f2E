@@ -3,7 +3,7 @@ var userID = 'NinaIkea';
 
 var perPage = 12;
 var behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '?callback=?&api_key=' + apiKey;
-var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey; //+ '&per_page=' + perPage;
 
 $('#projects').on('click', '.project-cover', function(){
   var $this = $(this),
