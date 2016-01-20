@@ -12,13 +12,7 @@ var gulp  = require('gulp'),
   plumber = require('gulp-plumber'),
   del     = require('del'),
   swig    = require('gulp-swig'),
-//  data    = require('gulp-data'),
-//  jeditor = require('gulp-json-editor'),
-//  gj = require('just-get-json'),
-//  Stringify = require('streaming-json-stringify'),
   request = require('request'),
-//  source = require('vinyl-source-stream'),
-//  streamify = require('gulp-streamify'),
   jsonfile = require('jsonfile');
 
 var opt = {
